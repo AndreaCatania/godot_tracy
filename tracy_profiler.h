@@ -29,5 +29,5 @@ public:
 	void zone_set_value(uint64_t p_zone_id, uint64_t p_value);
 	void zone_end(uint64_t p_zone_id);
 
-	void message(const String &p_text, const Color &p_color = Color());
+	void message(const String &p_text, const Color &p_color = Color(1.0, 1.0, 1.0, 1.0));
 };
