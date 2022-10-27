@@ -10,7 +10,7 @@
 
 Tracy is composed by two parts:
 1. The profiler GUI (The one you see above).
-1. The tracy instrumentations to fetch your game information.
+1. The tracy instrumentation to fetch your game information.
 
 > Get Tracy documentation and Windows profiler GUI binary can be download from [releases page](https://github.com/wolfpld/tracy/releases/).
 
@@ -30,20 +30,20 @@ git clone --recurse-submodules https://github.com/AndreaCatania/godot_tracy.git
 
 ## The profiler GUI
 
-The profiler GUI allows to consult all the data gathered by tracy. If you are on windows you can just download the GUI from the [Tracy GitHub repository](https://github.com/wolfpld/tracy/releases/), otherwise you have to compile it yourself; do not despair it's easy!
+The profiler GUI allows to consult all the data gathered by tracy. If you are on windows you can just downloaded the GUI from the [Tracy GitHub repository](https://github.com/wolfpld/tracy/releases/), otherwise you have to compile it yourself; do not despair it's easy!
 
 To compile the tracy profiler GUI all you need to do is to:
 1. Install all the following dependency `libglfw3-dev libdbus-1-dev libcapstone-dev libtbb-dev libdebuginfod-dev`.
 1. Using a terminal, go into the `godot_tracy/tracy/` folder.
 1. Compile the GUI using the following command "CC=clang CXX=clang++ make debug -C profiler/build/unix -j `nproc`".
 
-If the above command succeed, the following binary is produced: `Tracy-release` (`godot_tracy/tracy/profiler/build/unix/Tracy-release`).
+If the above command succeeds, the following binary is produced: `Tracy-release` (`godot_tracy/tracy/profiler/build/unix/Tracy-release`).
 
-## The tracy instrumentations
+## The tracy instrumentation
 
 ### How to enable tracy
 
-You have to explicitely enable it by adding `module_godot_tracy_enabled=true` to your SCons build command. This is an example:
+You have to explicitly enable it by adding `module_godot_tracy_enabled=true` to your SCons build command. This is an example:
 ```
 scons p=x11 target=release_debug module_godot_tracy_enabled=yes CCFLAGS="-fno-omit-frame-pointer -fno-inline -ggdb3"
 ```
@@ -54,7 +54,7 @@ scons p=x11 target=release_debug module_godot_tracy_enabled=yes CCFLAGS="-fno-om
 
 At this point you are free to use tracy. By default tracy shows all the CPU profiling event (similarly to `perf`); however, tracy gives the possibility to instrument your binary to add extra information:
 
-1. `FrameMark;` Is used to tell tracy the begin of the frame. Tracy will split the work per each frame so you can review any specific frame.
+1. `FrameMark;` Is used to tell tracy the beginning of the frame. Tracy will split the work per each frame so you can review any specific frame.
 1. `ZoneScoped;` Is used to mark a specific function.
 1. `TracyMessage;` Is used to log an event. This is really useful to report some useful information to know the exact application status.
 
@@ -64,7 +64,7 @@ At this point you are free to use tracy. By default tracy shows all the CPU prof
 > Note 2: The bare minimum is to add the `FrameMark;` and `ZoneScoped;` macros inside the platform specific `::run() {` function:
 > 
 > **Linux**
-> ```
+> ```c++
 > void OS_X11::run() {
 > 	force_quit = false;
 > 
@@ -100,7 +100,28 @@ At this point you are free to use tracy. By default tracy shows all the CPU prof
 
 This module provides the `TracyProfiler` singleton that can be used to mark specific GDScript zones, add messages, etc..
 
-However, this is not the best way to profile the godot scripting, as it needs some invasive changes to your codebase. Instead a smarter way is to add the macro `ZoneScoped` to specific godot areas, that are used to execute scripting functions.
+```GDScript
+class_name Enemy
+
+func _physics_process(delta):
+	var zone = TracyProfiler.zone_begin("Enemy::_physics_process")
+	TracyProfiler.zone_set_text("NodePath: " + get_path())
+	TracyProfiler.zone_set_color(Color::red);
+
+	# Here some code!
+
+	TracyProfiler.zone_end(zone)
+```
+
+This is just an example, there are some other functions that is possible to use to mark a zone.
+
+It's also possible to log the message using:
+```GDScript
+func _process(delta):
+	TracyProfiler.message("Process started. The delta is: " + delta)
+```
+
+However, this is not the best way to profile the godot scripting, as it needs some invasive changes to your codebase. Instead, a smarter way is to add the macro `ZoneScoped` to specific godot areas, that are used to execute scripting functions.
 
 Following all the areas where you have to add the code:
 
@@ -172,7 +193,7 @@ Variant GDScriptInstance::call(const StringName &p_method, const Variant **p_arg
 
 ### Extra instrumentation on the `Main::iterator` function.
 
-Personally I added some more `ZoneScope;` macro inside the `Main::iterator` function, to better identify the specific areas; like the physics processing, the idle processing, the rendering.
+If you want to have some extra info about the time spent on the physics, idle, rendering processing, it's possible to add some more `ZoneScoped;` macros inside the `Main::iterator` function, as follows:
 
 **main.cpp**
 ```diff
