@@ -34,8 +34,8 @@ The profiler GUI allows to consult all the data gathered by tracy. If you are on
 
 To compile the tracy profiler GUI all you need to do is to:
 1. Install all the following dependency `libglfw3-dev libdbus-1-dev libcapstone-dev libtbb-dev libdebuginfod-dev`.
-1. Using a terminal, go into the `godot_tracy/tracy/` folder.
-1. Compile the GUI using the following command "CC=clang CXX=clang++ make debug -C profiler/build/unix -j `nproc`".
+1. Using a terminal, go into the `godot_tracy/` folder.
+1. Compile the GUI using the following command "CC=clang CXX=clang++ make release -C ./tracy/profiler/build/unix -j `nproc`".
 
 If the above command succeeds, the following binary is produced: `Tracy-release` (`godot_tracy/tracy/profiler/build/unix/Tracy-release`).
 
@@ -43,9 +43,9 @@ If the above command succeeds, the following binary is produced: `Tracy-release`
 
 ### How to enable tracy
 
-You have to explicitly enable it by adding `module_godot_tracy_enabled=true` to your SCons build command. This is an example:
+You have to explicitly enable it by adding `tracy_enable=true` to your SCons build command. This is an example:
 ```
-scons p=x11 target=release_debug module_godot_tracy_enabled=yes CCFLAGS="-fno-omit-frame-pointer -fno-inline -ggdb3"
+scons p=x11 target=release_debug tracy_enable=yes CCFLAGS="-fno-omit-frame-pointer -fno-inline -ggdb3"
 ```
 
 > Note: The command `CCFLAGS="-fno-omit-frame-pointer -fno-inline -ggdb3"` will compile the game with all the needed debug info needed to properly profile the game.
