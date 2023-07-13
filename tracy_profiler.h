@@ -1,6 +1,7 @@
 #pragma once
 
-#include "core/object.h"
+#include "core/object/object.h"
+#include "core/object/class_db.h"
 #include "tracy/public/common/TracyColor.hpp"
 
 class TracyProfiler : public Object {
