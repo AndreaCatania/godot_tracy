@@ -1,6 +1,6 @@
 #include "tracy_profiler.h"
 
-#include "core/color.h"
+#include "core/math/color.h"
 #include "tracy/public/tracy/Tracy.hpp"
 #include "tracy/public/tracy/TracyC.h"
 
