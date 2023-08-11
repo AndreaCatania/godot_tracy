@@ -7,9 +7,10 @@
 
 class Profiler {
 public:
-	static CharString stringify_method(const StringName &p_method, const Variant **p_args, int p_argcount) {
+	static CharString stringify_method(const String &p_class, const StringName &p_method, const Variant **p_args, int p_argcount) {
 #ifdef TRACY_ENABLE
-		String out = p_method;
+		String out = p_class;
+		out += "::" + p_method;
 		out += "(";
 		for (int i = 0; i < p_argcount; i += 1) {
 			if (i != 0) {
