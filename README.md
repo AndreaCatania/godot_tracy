@@ -38,7 +38,7 @@ To compile the tracy profiler GUI all you need to do is to:
 1. Using a terminal, go into the `godot_tracy/` folder.
 1. Compile the GUI using the following command:
  	```
- 	CC=clang CXX=clang++ make release -C ./tracy/profiler/build/unix -j `nproc`".
+ 	CC=clang CXX=clang++ make release -C ./tracy/profiler/build/unix -j `nproc`
  	```
 
 If the above command succeeds, the following binary is produced: `Tracy-release` (`godot_tracy/tracy/profiler/build/unix/Tracy-release`).
