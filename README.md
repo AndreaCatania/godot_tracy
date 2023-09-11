@@ -69,7 +69,7 @@ At this point you are free to use tracy. By default tracy shows all the CPU prof
 > 
 > **Linux**
 > ```c++
-> void OS_X11::run() {
+> void OS_LinuxBSD::run() {
 > 	force_quit = false;
 > 
 > 	if (!main_loop) {
@@ -186,7 +186,7 @@ Variant Variant::call(const StringName &p_method, VARIANT_ARG_DECLARE) {
 ```c++
 #include "godot_tracy/profiler.h"
 
-Variant GDScriptInstance::call(const StringName &p_method, const Variant **p_args, int p_argcount, Variant::CallError &r_error) {
+Variant GDScriptInstance::callp(const StringName &p_method, const Variant **p_args, int p_argcount, Variant::CallError &r_error) {
 	ZoneScoped;
 	CharString c = String(p_method).utf8();
 	ZoneName(c.ptr(), c.size());
