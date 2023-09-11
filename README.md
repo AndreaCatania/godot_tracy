@@ -36,7 +36,10 @@ To compile the tracy profiler GUI all you need to do is to:
 1. Install all the following dependency `clang libglfw3-dev libdbus-1-dev libcapstone-dev libtbb-dev libdebuginfod-dev freetype-devel`.
    - Fedora: `sudo dnf install glfw-devel dbus-devel capstone-devel tbb-devel freetype-devel clang`
 1. Using a terminal, go into the `godot_tracy/` folder.
-1. Compile the GUI using the following command "CC=clang CXX=clang++ make release -C ./tracy/profiler/build/unix -j `nproc`".
+1. Compile the GUI using the following command:
+ 	```
+ 	CC=clang CXX=clang++ make release -C ./tracy/profiler/build/unix -j `nproc`".
+ 	```
 
 If the above command succeeds, the following binary is produced: `Tracy-release` (`godot_tracy/tracy/profiler/build/unix/Tracy-release`).
 
