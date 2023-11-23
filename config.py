@@ -13,6 +13,7 @@ def configure(env):
     if tracy_on_demand != "none":
         env["tracy_on_demand"] = tracy_on_demand
 
+
 def is_enabled():
     # The module is disabled by default. Use module_godot_tracy_enabled=yes to enable it.
-    return True
+    return False
