@@ -15,5 +15,4 @@ def configure(env):
 
 
 def is_enabled():
-    # The module is disabled by default. Use module_godot_tracy_enabled=yes to enable it.
-    return False
+    return True
