@@ -47,7 +47,7 @@ If the above command succeeds, the following binary is produced: `Tracy-release`
 
 ### How to enable tracy
 
-You have to explicitly enable it by adding `tracy_enable=true` to your SCons build command. This is an example:
+You have to explicitly enable it by adding `tracy_enable=yes` to your SCons build command. This is an example:
 ```
 scons p=x11 target=release_debug tracy_enable=yes CCFLAGS="-fno-omit-frame-pointer -fno-inline -ggdb3"
 ```
