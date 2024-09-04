@@ -5,13 +5,11 @@
 
 void initialize_godot_tracy_module(ModuleInitializationLevel p_level) {
 	if (p_level == ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_CORE) {
-#ifndef TRACY_ENABLE
-		print_line("The TRACY profiler is disabled.");
-#endif
-
+	#ifndef TRACY_ENABLE
+			print_line("The TRACY profiler is disabled.");
+	#endif
 		TracyProfiler::init_singleton();
-
-	} else if (p_level == ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_CORE) {
+	} else if (p_level == ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_SERVERS) {
 		ClassDB::register_class<TracyProfiler>();
 		Engine::get_singleton()->add_singleton(Engine::Singleton("TracyProfiler", TracyProfiler::get_singleton()));
 	}
