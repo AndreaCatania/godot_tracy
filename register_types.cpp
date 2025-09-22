@@ -11,7 +11,7 @@ void initialize_godot_tracy_module(ModuleInitializationLevel p_level) {
 
 		TracyProfiler::init_singleton();
 
-	} else if (p_level == ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_CORE) {
+	} else if (p_level == ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_SCENE) {
 		ClassDB::register_class<TracyProfiler>();
 		Engine::get_singleton()->add_singleton(Engine::Singleton("TracyProfiler", TracyProfiler::get_singleton()));
 	}
